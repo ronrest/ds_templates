@@ -337,8 +337,8 @@ class ClassifierModel(ClassifierModelBase):
         # BOOKMARK: This body() method is the most important thing to modify
 
         # Initializers
-        # he_et_al_init = tf.contrib.keras.initializers.he_normal()
-        # xavier_init = tf.contrib.keras.initializers.glorot_normal()
+        he_init = tf.contrib.keras.initializers.he_normal() # He et al 2015 initialization
+        xavier_init = tf.contrib.keras.initializers.glorot_normal()
 
         # dropout = tf.cond(is_training, lambda: tf.constant(0.5), lambda: tf.constant(0.0))
 
@@ -346,13 +346,20 @@ class ClassifierModel(ClassifierModelBase):
         x = tf.div(X, 255., name="scale")
 
         # Convolutional layers
-        x = tf.contrib.layers.conv2d(inputs=x, num_outputs=8, kernel_size=3, stride=2, padding="SAME")
-        x = tf.contrib.layers.conv2d(inputs=x, num_outputs=16, kernel_size=3, stride=2, padding="SAME")
-        x = tf.contrib.layers.conv2d(inputs=x, num_outputs=32, kernel_size=3, stride=2, padding="SAME")
+        x = tf.layers.conv2d(x, filters=8, kernel_size=3, strides=2, padding='same', activation=tf.nn.relu, kernel_initializer=he_init)
+        x = tf.layers.conv2d(x, filters=16, kernel_size=3, strides=2, padding='same', activation=tf.nn.relu, kernel_initializer=he_init)
+        x = tf.layers.conv2d(x, filters=32, kernel_size=3, strides=2, padding='same', activation=tf.nn.relu, kernel_initializer=he_init)
+
+        # x = tf.contrib.layers.conv2d(x, num_outputs=8, kernel_size=3, stride=2, padding="SAME")
+        # x = tf.contrib.layers.conv2d(x, num_outputs=16, kernel_size=3, stride=2, padding="SAME")
+        # x = tf.contrib.layers.conv2d(x, num_outputs=32, kernel_size=3, stride=2, padding="SAME")
+
 
         # Fully Connected Layers
         x = tf.contrib.layers.flatten(x)
-        logits = tf.contrib.layers.fully_connected(x, n_classes, activation_fn=None)
+        logits = tf.layers.dense(x, units=n_classes, activation=None, kernel_initializer=xavier_init)
+        # logits = tf.contrib.layers.fully_connected(x, n_classes, activation_fn=None)
+        
         return logits
 
 
