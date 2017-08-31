@@ -47,9 +47,10 @@ def train_curves(train, valid, saveto=None, label="Accuracy over time"):
     ax.set_ylabel("accuracy")
     ax.legend(loc="lower right", title="", frameon=False,  fontsize=8)
     if saveto is None:
-        fig.show()
+        plt.show()
     else:
         fig.savefig(saveto)
+
 
 def plot_label_frequencies(y, dataname="", logscale=False, saveto=None):
     """ Plots the frequency of each label in the dataset."""
