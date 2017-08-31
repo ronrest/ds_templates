@@ -7,7 +7,6 @@ import pickle
 import os
 import time
 
-
 # TODO: allow alpha to be entered as an argument for training
 # TODO: save and restore evals and global_epoch
 
@@ -126,9 +125,9 @@ print("X_test : ", data["X_test"].shape)
 
 # Visualize distribution of labels
 # BOOKMARK: Visualize data
-plot_label_frequencies(data["Y_train"], logscale=True, dataname="train", saveto=None)
-plot_label_frequencies(data["Y_valid"], logscale=True, dataname="valid", saveto=None)
-plot_label_frequencies(data["Y_test"], logscale=True, dataname="test", saveto=None)
+plot_label_frequencies(data["Y_train"], logscale=False, dataname="train", saveto=None)
+plot_label_frequencies(data["Y_valid"], logscale=False, dataname="valid", saveto=None)
+plot_label_frequencies(data["Y_test"], logscale=False, dataname="test", saveto=None)
 
 # Visualize distribution of values in inputs
 plot_density_distribution(data["X_train"], logscale=True, dataname="train", saveto=None)
@@ -360,7 +359,7 @@ class ClassifierModel(ClassifierModelBase):
         x = tf.contrib.layers.flatten(x)
         logits = tf.layers.dense(x, units=n_classes, activation=None, kernel_initializer=xavier_init)
         # logits = tf.contrib.layers.fully_connected(x, n_classes, activation_fn=None)
-        
+
         return logits
 
 
