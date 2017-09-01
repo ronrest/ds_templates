@@ -354,6 +354,8 @@ class ClassifierModel(ClassifierModelBase):
         # x = tf.contrib.layers.conv2d(x, num_outputs=16, kernel_size=3, stride=2, padding="SAME")
         # x = tf.contrib.layers.conv2d(x, num_outputs=32, kernel_size=3, stride=2, padding="SAME")
 
+        # Deconvolutional layers
+        #x = conv2d_transpose(x, filters=32, kernel_size=3, strides=1, padding='same', activation=tf.nn.relu, kernel_initializer=None, name="DC1") #### Deconvolutional Layer
 
         # Fully Connected Layers
         x = tf.contrib.layers.flatten(x)
